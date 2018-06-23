@@ -1,2 +1,2 @@
 # OceanHub
-See the ocean from the back of your favorite device
+See the beauty of the ocean from your favorite device
