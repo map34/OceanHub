@@ -1,0 +1,33 @@
+FROM ubuntu:18.04
+
+ENV LC_ALL C.UTF-8
+ENV LANG C.UTF-8
+
+RUN apt-get update -yqq \
+  && apt-get install -yqq --no-install-recommends \
+    software-properties-common
+
+# -- Install Python dependencies
+RUN apt-get install -yqq --no-install-recommends \
+    build-essential \
+    python3.7 \
+    python3.7-dev \
+    python3-pip \
+    git \
+  && apt-get -q clean \
+  && pip3 install pipenv
+
+# -- Install Application into container:
+RUN set -ex && mkdir /usr/src/app
+
+WORKDIR /usr/src/app
+
+# -- Adding Pipfiles
+COPY backend/Pipfile Pipfile
+COPY backend/Pipfile.lock Pipfile.lock
+
+# -- Install dependencies:
+RUN pipenv install --system
+
+# -- Entrypoint
+CMD ["sleep", "inf"]

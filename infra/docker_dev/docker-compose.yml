@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  oceanhub_server:
+    build:
+      context: ../../
+      dockerfile: ./infra/docker_dev/Dockerfile_server
+    volumes:
+      - ../../:/usr/src/app:consistent
+    ports:
+      - "8000:8000"
