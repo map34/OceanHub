@@ -31,7 +31,7 @@ before_install:
   - conda update conda --yes
   - conda config --set show_channel_urls true
   - conda config --add channels conda-forge --force
-  - conda create --yes -n TEST python=$TRAVIS_PYTHON_VERSION --file backend/equirements.txt --file backend/requirements-dev.txt
+  - conda create --yes -n TEST python=$TRAVIS_PYTHON_VERSION --file backend/requirements.txt --file backend/requirements-dev.txt
 
 # Install our software
 install:
