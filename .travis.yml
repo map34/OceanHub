@@ -41,5 +41,5 @@ install:
 script:
   - if [[ $TEST_TARGET == 'default' ]]; then
       echo 'Perform simple test that environment is built' ;
-      source activate TEST
+      source activate TEST ;
     fi
