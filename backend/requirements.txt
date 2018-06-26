@@ -1,3 +1,2 @@
-# Packages for production environment
-flask>=1.0.2
-flask-script>=2.0.6
+flask-script==2.0.6
+flask==1.0.2

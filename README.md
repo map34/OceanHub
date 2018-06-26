@@ -23,5 +23,8 @@ From the root folder of the project:
 docker-compose -f infra/docker_dev/docker-compose.yml run oceanhub_server bash
 
 # Run Flask Python shell
-docker-compose -f infra/docker_dev/docker-compose.yml run oceanhub_server bash -c "python3 backend/server/manage.py shell"
+docker-compose -f infra/docker_dev/docker-compose.yml run oceanhub_server bash -c "source activate TEST && python backend/server/manage.py shell"
+
+# Run Flask server
+docker-compose -f infra/docker_dev/docker-compose.yml run oceanhub_server bash -c "source activate TEST && python backend/server/manage.py runserver"
 ```
