@@ -1,12 +1,12 @@
 # Python testing library
-pytest
+pytest==3.6.2
 # Python linting library
-flake8
-flake8-builtins
-flake8-comprehensions
-flake8-import-order
-flake8-mutable
-flake8-print
-flake8-quotes
+flake8==3.5.0
+flake8-builtins==1.4.1
+flake8-comprehensions==1.4.1
+flake8-import-order==0.17.1
+flake8-mutable==1.2.0
+flake8-print==3.1.0
+flake8-quotes==1.0.0
 # Ipython and other shell debug stuff
-ipython
+ipython==6.4.0
