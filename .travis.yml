@@ -1,0 +1,45 @@
+# Default language to use for running CI
+language: python
+
+# Sudo false allows Travis CI to run in a containerized environment (Docker)
+# rather than a full VM
+sudo: false
+
+# Specifies the linux distribution to run the CI on
+dist: trusty
+
+# Testing matrix for any environment variables or specific versions
+# of testing environments
+matrix:
+  fast_finish: true
+  include:
+  - python: 3.6
+    env: TEST_TARGET=default
+
+# Download of any lower level dependencies to install the software
+before_install:
+  - |
+    URL="http://bit.ly/miniconda"
+    echo ""
+    if [ ! -f $HOME/miniconda/bin/conda ] ; then
+      echo "Fresh miniconda installation."
+      wget $URL -O miniconda.sh
+      rm -rf $HOME/miniconda
+      bash miniconda.sh -b -p $HOME/miniconda
+    fi
+  - export PATH="$HOME/miniconda/bin:$PATH"
+  - conda update conda --yes
+  - conda config --set show_channel_urls true
+  - conda config --add channels conda-forge --force
+  - conda create --yes -n TEST python=$TRAVIS_PYTHON_VERSION --file backend/requirements.txt --file backend/requirements-dev.txt
+
+# Install our software
+install:
+  - echo 'Install package here...'
+
+# Script to run any sort of testing, deployments, linting, etc
+script:
+  - if [[ $TEST_TARGET == 'default' ]]; then
+      echo 'Perform simple test that environment is built' ;
+      source activate TEST ;
+    fi
