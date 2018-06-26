@@ -32,5 +32,3 @@ COPY infra/scripts/setup-server.sh backend/setup-server.sh
 # -- Install dependencies:
 RUN backend/setup-server.sh
 
-# -- Entrypoint
-ENTRYPOINT ["bash"]
