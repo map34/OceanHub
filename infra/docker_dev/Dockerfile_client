@@ -1,0 +1,32 @@
+FROM ubuntu:18.04
+
+ENV LC_ALL C.UTF-8
+ENV LANG C.UTF-8
+
+# Install requirementt
+
+RUN apt-get update -yqq \
+  && apt-get install -yqq --no-install-recommends \
+    software-properties-common \
+    curl \
+    git \
+    wget \
+    build-essential \
+    gnupg
+
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
+
+# -- get debian source for Node.js 9
+RUN curl -sL https://deb.nodesource.com/setup_9.x | bash -
+
+# -- Install Node dependencies
+RUN apt-get install -yqq --no-install-recommends nodejs \
+  && apt-get -q clean
+
+# -- Install npm
+RUN npm install -g npm@6.1.0
+
+# -- Install Application into container:
+RUN set -ex && mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
