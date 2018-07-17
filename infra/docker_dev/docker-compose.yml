@@ -9,6 +9,8 @@ services:
       - ../../:/usr/src/app:consistent
     ports:
       - 5000:5000
+    links:
+      - kafka
     command: bash -c "source activate TEST && python backend/server/manage.py runserver"
   zookeeper:
     image: wurstmeister/zookeeper
@@ -16,6 +18,7 @@ services:
       - 2181:2181
   kafka:
     image: wurstmeister/kafka:0.10.1.0
+    build: .
     environment:
       KAFKA_ADVERTISED_HOST_NAME: 0.0.0.0
       KAFKA_ADVERTISED_PORT: 9092
@@ -26,3 +29,7 @@ services:
       - 9092:9092
     expose:
       - 9092
+    volumes:
+      - kafkavolume:/var/run/docker.sock
+volumes:
+  kafkavolume:
