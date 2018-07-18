@@ -2,6 +2,7 @@ version: '3'
 
 services:
   oceanhub_server:
+    restart: always
     build:
       context: ../../
       dockerfile: ./infra/docker_dev/Dockerfile_server
@@ -19,16 +20,17 @@ services:
   kafka:
     image: wurstmeister/kafka:0.10.1.0
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: 0.0.0.0
+      KAFKA_ADVERTISED_HOST_NAME: kafka
       KAFKA_ADVERTISED_PORT: 9092
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
-      KAFKA_CREATE_TOPICS: "messages:1:1"
+      KAFKA_CREATE_TOPICS: "video-stream:1:1"
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
     ports:
       - 9092:9092
     expose:
       - 9092
+    hostname: kafka
     volumes:
-      - kafkavolume:/var/run/docker.sock
-volumes:
-  kafkavolume:
+      - /var/run/docker.sock:/var/run/docker.sock
+    links:
+      - zookeeper
