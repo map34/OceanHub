@@ -10,13 +10,14 @@ RUN apt-get update -yqq \
     software-properties-common
 
 # -- Install Python dependencies
-RUN apt-get install -yqq --no-install-recommends \
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -yqq --no-install-recommends \
     build-essential \
     python3.7 \
     python3.7-dev \
     python3-pip \
     git \
     wget \
+    python3-opencv \
   && apt-get -q clean
 
 # -- Install Application into container:

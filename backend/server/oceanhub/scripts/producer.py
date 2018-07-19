@@ -1,18 +1,18 @@
 import time
 import cv2
-from kafka import SimpleProducer, KafkaClient
-#  connect to Kafka
-kafka = KafkaClient('localhost:9092')
-producer = SimpleProducer(kafka)
-# Assign a topic
-topic = 'my-topic'
+from kafka import KafkaProducer
 
 def video_emitter(video):
     # Open the video
     video = cv2.VideoCapture(video)
     print(' emitting.....')
+    #  connect to Kafka
+    producer = KafkaProducer(bootstrap_servers='kafka:9092')
+    # Assign a topic
+    topic = 'video-stream'
 
     # read the file
+    i = 0
     while (video.isOpened):
         # read the image in each frame
         success, image = video.read()
@@ -22,12 +22,15 @@ def video_emitter(video):
         # convert the image png
         ret, jpeg = cv2.imencode('.png', image)
         # Convert the image to bytes and send to kafka
-        producer.send_messages(topic, jpeg.tobytes())
+        producer.send(topic, jpeg.tobytes())
+        i += 1
+        print('Frame No. %s' % i)
         # To reduce CPU usage create sleep time of 0.2sec
         time.sleep(0.2)
-    # clear the capture
+        # clear the capture
     video.release()
+    producer.close()
     print('done emitting')
 
-if __name__ == '__main__':
-    video_emitter('video.mp4')
+def test_video():
+    video_emitter('SampleVideo_1280x720_5mb.mp4')
