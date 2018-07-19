@@ -25,6 +25,9 @@ services:
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_CREATE_TOPICS: "video-stream:1:1"
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_MESSAGE_MAX_BYTES: 2000000
+      # IDK what the flag for fetch.message.max.bytes is on here
+      # (might need to copy the configfile over to the Kafka container)
     ports:
       - 9092:9092
     expose:
