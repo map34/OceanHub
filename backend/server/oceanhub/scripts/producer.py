@@ -19,11 +19,16 @@ def video_emitter(video):
         # check if the file has read to the end
         if not success:
             break
-        # convert the image png
-        ret, jpeg = cv2.imencode('.png', image)
+        # convert the image jpg, lower quality for now (we don't need to bloat the browser)
+        encoding_param = [int(cv2.IMWRITE_JPEG_QUALITY), 70]
+        ret, jpeg = cv2.imencode('.jpg', image, encoding_param)
+
         # Convert the image to bytes and send to kafka
-        producer.send(topic, jpeg.tobytes())
+        byte = jpeg.tobytes()
+        producer.send(topic, byte)
         i += 1
+
+        print('bytesize %s', len(byte))
         print('Frame No. %s' % i)
         # To reduce CPU usage create sleep time of 0.2sec
         time.sleep(0.2)

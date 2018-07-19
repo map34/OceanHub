@@ -18,5 +18,5 @@ def kafkastream(consumer):
         # print(msg.value)
         # print(msg.offset)
         yield (b'--frame\r\n'
-               b'Content-Type: image/png\r\n\r\n' + msg.value + b'\r\n\r\n')
+               b'Content-Type: image/jpeg\r\n\r\n' + msg.value + b'\r\n\r\n')
 
