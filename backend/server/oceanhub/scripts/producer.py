@@ -1,11 +1,14 @@
+import logging
 import time
 import cv2
 from kafka import KafkaProducer
 
+logger = logging.getLogger(__name__)
+
 def video_emitter(video):
     # Open the video
     video = cv2.VideoCapture(video)
-    print(' emitting.....')
+    logger.info(' emitting.....')
     #  connect to Kafka
     producer = KafkaProducer(bootstrap_servers='kafka:9092')
     # Assign a topic
@@ -28,14 +31,14 @@ def video_emitter(video):
         producer.send(topic, byte)
         i += 1
 
-        print('bytesize %s', len(byte))
-        print('Frame No. %s' % i)
+        logger.info(f'bytesize {len(byte)}')
+        logger.info(f'Frame No. {i}')
         # To reduce CPU usage create sleep time of 0.2sec
         time.sleep(0.2)
         # clear the capture
     video.release()
     producer.close()
-    print('done emitting')
+    logger.info('done emitting')
 
 def test_video():
     video_emitter('SampleVideo_1280x720_5mb.mp4')
