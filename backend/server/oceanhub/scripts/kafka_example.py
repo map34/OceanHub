@@ -1,5 +1,7 @@
 #!/usr/bin/env python
-import threading, logging, time
+import threading
+import logging
+import time
 import multiprocessing
 
 from kafka import KafkaConsumer, KafkaProducer
@@ -22,6 +24,7 @@ class Producer(threading.Thread):
             time.sleep(1)
 
         producer.close()
+
 
 class Consumer(multiprocessing.Process):
     def __init__(self):
@@ -66,7 +69,9 @@ def main():
 
 if __name__ == "__main__":
     logging.basicConfig(
-        format='%(asctime)s.%(msecs)s:%(name)s:%(thread)d:%(levelname)s:%(process)d:%(message)s',
+        format='%(asctime)s.%(msecs)s:\
+            %(name)s:%(thread)d:%(levelname)s:\
+            %(process)d:%(message)s',
         level=logging.INFO
         )
     main()

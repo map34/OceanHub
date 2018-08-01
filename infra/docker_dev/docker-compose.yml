@@ -2,7 +2,6 @@ version: '3'
 
 services:
   oceanhub_server:
-    restart: always
     build:
       context: ../../
       dockerfile: ./infra/docker_dev/Dockerfile_server
