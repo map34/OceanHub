@@ -5,18 +5,20 @@ from kafka import KafkaConsumer
 
 logger = logging.getLogger(__name__)
 videos_blueprint = Blueprint('videos', __name__)
-#Continuously listen to the connection and print messages as recieved
+# Continuously listen to the connection and print messages as recieved
+
 
 @videos_blueprint.route('/')
 def index():
     logger.info('Creating consumer.')
     consumer = KafkaConsumer(bootstrap_servers='kafka:9092',
-                            auto_offset_reset='earliest',
-                            consumer_timeout_ms=1000)
+                             auto_offset_reset='earliest',
+                             consumer_timeout_ms=1000)
     logger.info('Consumer created successfully.')
     consumer.subscribe(['video-stream'])
     return Response(kafkastream(consumer),
-                        mimetype='multipart/x-mixed-replace; boundary=frame')
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
 
 def kafkastream(consumer):
     for msg in consumer:
@@ -25,4 +27,3 @@ def kafkastream(consumer):
         logger.info(f'Offset: {msg.offset}')
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + msg.value + b'\r\n\r\n')
-

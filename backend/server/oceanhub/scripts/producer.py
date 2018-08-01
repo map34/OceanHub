@@ -5,6 +5,7 @@ from kafka import KafkaProducer
 
 logger = logging.getLogger(__name__)
 
+
 def video_emitter(video):
     # Open the video
     video = cv2.VideoCapture(video)
@@ -22,7 +23,8 @@ def video_emitter(video):
         # check if the file has read to the end
         if not success:
             break
-        # convert the image jpg, lower quality for now (we don't need to bloat the browser)
+        # convert the image jpg, lower quality for now
+        # (we don't need to bloat the browser)
         encoding_param = [int(cv2.IMWRITE_JPEG_QUALITY), 70]
         ret, jpeg = cv2.imencode('.jpg', image, encoding_param)
 
@@ -39,6 +41,7 @@ def video_emitter(video):
     video.release()
     producer.close()
     logger.info('done emitting')
+
 
 def test_video():
     video_emitter('SampleVideo_1280x720_5mb.mp4')

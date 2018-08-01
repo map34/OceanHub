@@ -19,12 +19,14 @@ docker-compose -f infra/docker_dev/docker-compose.yml build
 From the root folder of the project:
 
 ```bash
-# Run bash shell
-docker-compose -f infra/docker_dev/docker-compose.yml run oceanhub_server bash
+# Note, these are not sequential steps. You can use any of them independently of each other.
 
-# Run Flask Python shell
-docker-compose -f infra/docker_dev/docker-compose.yml run oceanhub_server bash -c "source activate TEST && python backend/server/manage.py shell"
+# To run bash shell
+docker-compose -f infra/docker_dev/docker-compose.yml run --rm oceanhub_server bash
 
-# Run the cluster up
+# To run Flask Python shell
+docker-compose -f infra/docker_dev/docker-compose.yml run --rm oceanhub_server bash -c "source activate TEST && python backend/server/manage.py shell"
+
+# To run the cluster up
 docker-compose -f infra/docker_dev/docker-compose.yml up
 ```
