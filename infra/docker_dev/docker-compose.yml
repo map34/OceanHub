@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  oceanhub_server:
+  oceanhub-server:
     build:
       context: ../../
       dockerfile: ./infra/docker_dev/Dockerfile_server
@@ -10,13 +10,13 @@ services:
     ports:
       - 5000:5000
     links:
-      - kafka
+      - kafka-cluster
     command: bash -c "source activate TEST && python backend/server/manage.py runserver"
   zookeeper:
     image: wurstmeister/zookeeper
     ports:
       - 2181:2181
-  kafka:
+  kafka-cluster:
     image: wurstmeister/kafka:0.10.1.0
     environment:
       KAFKA_ADVERTISED_HOST_NAME: kafka
