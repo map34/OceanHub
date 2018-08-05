@@ -22,10 +22,10 @@ From the root folder of the project:
 # Note, these are not sequential steps. You can use any of them independently of each other.
 
 # To run bash shell
-docker-compose -f infra/docker_dev/docker-compose.yml run --rm oceanhub_server bash
+docker-compose -f infra/docker_dev/docker-compose.yml run --rm oceanhub-server bash
 
 # To run Flask Python shell
-docker-compose -f infra/docker_dev/docker-compose.yml run --rm oceanhub_server bash -c "source activate TEST && python backend/server/manage.py shell"
+docker-compose -f infra/docker_dev/docker-compose.yml run --rm oceanhub-server bash -c "source activate TEST && python backend/server/manage.py shell"
 
 # To run the cluster up
 docker-compose -f infra/docker_dev/docker-compose.yml up
