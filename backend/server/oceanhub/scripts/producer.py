@@ -1,6 +1,8 @@
 import logging
 import time
+
 import cv2
+
 from kafka import KafkaProducer
 
 logger = logging.getLogger(__name__)

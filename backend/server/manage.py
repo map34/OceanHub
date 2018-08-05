@@ -1,17 +1,13 @@
-from flask_script import Command, Manager, Shell
+from flask_script import Command, Manager
 
 from oceanhub import app
-from oceanhub.scripts.shell import make_shell_context
+from oceanhub.scripts.shell import RunOceanHubShell
+from oceanhub.scripts.tests import RunOceanHubTests
 
 manager = Manager(app)
 
 
-class StartShell(Command):
-    def run(self):
-        Shell(make_context=make_shell_context).run(False, False, False, False)
-
-
-class RunServer(Command):
+class RunOceanHubServer(Command):
     def run(self):
         app.run(
             host='0.0.0.0',
@@ -20,8 +16,9 @@ class RunServer(Command):
         )
 
 
-manager.add_command('shell', StartShell())
-manager.add_command('runserver', RunServer())
+manager.add_command('shell', RunOceanHubShell())
+manager.add_command('runserver', RunOceanHubServer())
+manager.add_command('test', RunOceanHubTests())
 
 if __name__ == '__main__':
     manager.run()

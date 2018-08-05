@@ -1,10 +1,12 @@
 #!/usr/bin/env python
-import threading
 import logging
-import time
 import multiprocessing
+import threading
+import time
 
 from kafka import KafkaConsumer, KafkaProducer
+
+logger = logging.getLogger(__name__)
 
 
 class Producer(threading.Thread):
@@ -19,8 +21,8 @@ class Producer(threading.Thread):
         producer = KafkaProducer(bootstrap_servers='kafka:9092')
 
         while not self.stop_event.is_set():
-            producer.send('video-stream', b"test")
-            producer.send('video-stream', b"\xc2Hola, mundo!")
+            producer.send('video-stream', b'test')
+            producer.send('video-stream', b'\xc2Hola, mundo!')
             time.sleep(1)
 
         producer.close()
@@ -42,7 +44,7 @@ class Consumer(multiprocessing.Process):
 
         while not self.stop_event.is_set():
             for message in consumer:
-                print(message)
+                logger.info(message)
                 if self.stop_event.is_set():
                     break
 
@@ -67,7 +69,7 @@ def main():
         task.join()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     logging.basicConfig(
         format='%(asctime)s.%(msecs)s:\
             %(name)s:%(thread)d:%(levelname)s:\

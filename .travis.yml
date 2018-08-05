@@ -39,7 +39,4 @@ install:
 
 # Script to run any sort of testing, deployments, linting, etc
 script:
-  - if [[ $TEST_TARGET == 'default' ]]; then
-      echo 'Perform simple test that environment is built' ;
-      source activate TEST ;
-    fi
+  - ./infra/scripts/test.sh

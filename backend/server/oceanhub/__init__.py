@@ -1,7 +1,8 @@
 from __future__ import absolute_import
 
 from flask import Flask
-from oceanhub.videos.views import videos_blueprint
+
+from oceanhub.core.blueprints import initialize_blueprints
 
 app = Flask(
     __name__,
@@ -10,4 +11,4 @@ app = Flask(
     static_url_path='/static_null'
 )
 
-app.register_blueprint(videos_blueprint, url_prefix='/videos')
+initialize_blueprints(app)
