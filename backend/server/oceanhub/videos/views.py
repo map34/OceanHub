@@ -1,7 +1,6 @@
 import logging
 
 from flask import Blueprint, Response, jsonify
-
 from kafka import KafkaConsumer
 
 logger = logging.getLogger(__name__)
