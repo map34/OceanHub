@@ -14,7 +14,9 @@ matrix:
   fast_finish: true
   include:
   - python: 3.6
-    env: TEST_TARGET=default
+    env: TEST_TARGET=test
+  - python: 3.6
+    env: TEST_TARGET=lint
 
 # Download of any lower level dependencies to install the software
 before_install:
@@ -40,3 +42,4 @@ install:
 # Script to run any sort of testing, deployments, linting, etc
 script:
   - ./infra/scripts/test.sh
+  - ./infra/scripts/lint.sh
