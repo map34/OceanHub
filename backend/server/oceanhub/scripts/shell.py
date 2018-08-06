@@ -1,8 +1,14 @@
+import logging
+
+from flask_script import Command, Shell
+
 from oceanhub.scripts.producer import test_video
+
+logger = logging.getLogger(__name__)
 
 
 def test_global():
-    print('Hi, my name is Si!')
+    logger.info('Hi, my name is Si!')
 
 
 def make_shell_context():  # get all the tasks loaded up into the application
@@ -10,3 +16,8 @@ def make_shell_context():  # get all the tasks loaded up into the application
         'test_global': test_global,
         'test_producer_video': test_video
     }
+
+
+class RunOceanHubShell(Command):
+    def run(self):
+        Shell(make_context=make_shell_context).run(False, False, False, False)
